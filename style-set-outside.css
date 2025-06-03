@@ -1,0 +1,19 @@
+/* === STYLE SET: STANDARD BULLETS (.style-set-outside) === */
+/* Styles for 'outside' list-style-position (bullet outside highlight) */
+.style-set-outside ul.highlight-list,
+.style-set-outside ul.ul-highlight {
+  list-style-position: outside;
+}
+
+.style-set-outside ul.highlight-list li,
+.style-set-outside ul.ul-highlight li {
+  /* transition: background 200ms ease, box-shadow 200ms ease; <- In universal-styles.css */
+  padding-left: 0; /* Reset padding, bullet position handled by 'outside' */
+  text-indent: 0;   /* Reset text-indent */
+} 
+
+.style-set-outside ul.highlight-list,
+.style-set-outside ul.ul-highlight {
+  padding-left: 64px; /* Base indentation for lists, adjusted by specific rules if needed */
+  margin-left: 0px;
+}

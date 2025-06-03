@@ -1,0 +1,13 @@
+/* === STYLE SET: BULLET HIGHLIGHTING (.style-set-inside) === */
+/* Styles for 'inside' list-style-position (bullet included in highlight) */
+.style-set-inside ul.highlight-list,
+.style-set-inside ul.ul-highlight {
+  list-style-position: inside;
+}
+
+.style-set-inside ul.highlight-list li,
+.style-set-inside ul.ul-highlight li {
+  /* transition: background 200ms ease, box-shadow 200ms ease; <- In universal-styles.css */
+  padding-left: 36px;
+  text-indent: -32px;
+} 

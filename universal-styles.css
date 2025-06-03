@@ -1,0 +1,173 @@
+/* === UNIVERSAL STYLES === */
+/* Page setup */
+html, body {
+  margin: 1rem; /* 1rem margin on all sides */
+  background-color: rgb(240, 240, 240);
+  font-family: calibri;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+body {
+  max-width: 700px;
+  margin-left: auto;
+  padding: 3rem;
+  margin-right: auto;
+  background-color: white;
+}
+
+/* --- Sticky Style Switch --- */
+.style-switch-container {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  outline:solid 3px white;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 1); /* Semi-transparent background for context */
+  padding: 0.75rem 0;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.style-switch {
+  display: inline-flex;
+  border: 1px solid #9000ea;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.style-switch .switch-option {
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  color: #9000ea;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.style-switch .switch-option:not(:last-child) {
+  border-right: 1px solid #9000ea;
+}
+
+.style-switch .switch-option.active {
+  background-color: #9000ea;
+  color: #fff;
+}
+/* --- End Sticky Style Switch --- */
+
+p {
+  margin-bottom: 0rem;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+h4 {
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+  }
+
+/* Base list styling (shared parts) */
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 0px; /* Reset browser default */
+  unicode-bidi: isolate;
+}
+
+ul.highlight-list,
+ul.ul-highlight {
+  margin-left: 38px; /* Base indentation for lists, adjusted by specific rules if needed */
+}
+
+/* Smooth transitions for individual <li> (can be universal) */
+ul.highlight-list li,
+ul.ul-highlight li {
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+
+li {
+   padding-left:2px
+}
+
+/* Item-level highlight (bullet + text only) - Universal appearance */
+.li-highlight {
+  background-color: #F3E8FF;           /* light-purple fill */
+  outline: 1px solid #9000ea;      /* 1px bright-purple outline */
+  width: fit-content;                 /* shrink box to bullet + text */
+  max-width: max-content;             /* Safari fallback */
+}
+
+/* Continuous Highlight Styles - Universal appearance */
+.li-highlight-top-continuous {
+  background-color: #F3E8FF;
+  width: fit-content;
+  max-width: max-content;
+  box-shadow: 0 -1px 0 0 #9000ea, /* top */
+              -1px 0 0 0 #9000ea, /* left */
+              1px 0 0 0 #9000ea;  /* right */
+}
+
+.li-highlight-middle-continuous {
+  background-color: #F3E8FF;
+  width: fit-content;
+  max-width: max-content;
+  box-shadow: -1px 0 0 0 #9000ea, /* left */
+              1px 0 0 0 #9000ea;  /* right */
+}
+
+.li-highlight-bottom-continuous {
+  background-color: #F3E8FF;
+  width: fit-content;
+  max-width: max-content;
+  box-shadow: 0 1px 0 0 #9000ea,  /* bottom */
+              -1px 0 0 0 #9000ea, /* left */
+              1px 0 0 0 #9000ea;  /* right */
+}
+
+/* WHOLE-LIST highlight class (outline + halo) - Universal appearance */
+ul.ul-highlight {
+  background-color: #F3E8FF;            /* light fill */
+  box-shadow: 0 0 0 8px #F3E8FF;        /* 8px halo */
+  outline: 2px solid #9000ea;           /* 2px solid border */
+  outline-offset: 8px;
+  /* margin-left: 40px; */ /* Already in universal ul.ul-highlight */
+  width: fit-content;
+  max-width: max-content;
+  /* border-radius: 0; */ /* Default is 0, can be omitted or kept if explicit */
+}
+
+/* Support ul-highlight on any element (e.g., div) */
+.ul-highlight { /* This selector might be too broad if intended only for <ul> */
+  background-color: #F3E8FF;
+  box-shadow: 0 0 0 8px #F3E8FF;
+  outline: 2px solid #9000ea;
+  outline-offset: 8px;
+  margin-left: 40px; /* Consider if this should be specific to ul.ul-highlight */
+  width: fit-content;
+  max-width: max-content;
+  /* border-radius: 0; */
+}
+
+/* BLOCK-LEVEL highlight (paragraph + list) - Universal appearance */
+.block-highlight {
+  background-color: #F3E8FF;
+  box-shadow: 0 0 0 8px #F3E8FF;        /* same 8px halo */
+  outline: 2px solid #9000ea;           /* 2px bright-purple border */
+  outline-offset: 8px;
+  width: fit-content;
+  max-width: max-content;
+}
+
+/* Keyboard focus ring for accessibility - Universal */
+ul.highlight-list li:focus-visible,
+ul.ul-highlight li:focus-visible,
+.block-highlight :is(li, p):focus-visible,
+.ul-highlight li:focus-visible { /* Duplicates ul.ul-highlight li:focus-visible above, can merge */
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+} 

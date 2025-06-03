@@ -1,0 +1,135 @@
+/* === STYLE SET: PSEUDO-ELEMENTS (.style-set-pseudo) === */
+/* Styles for pseudo-element highlighting with outside list-style-position */
+.style-set-pseudo ul.highlight-list,
+.style-set-pseudo ul.ul-highlight {
+  list-style-position: outside;
+}
+
+.style-set-pseudo ul.highlight-list li,
+.style-set-pseudo ul.ul-highlight li {
+  /* transition: background 200ms ease, box-shadow 200ms ease; <- In universal-styles.css */
+  padding-left: 0; /* Reset padding, bullet position handled by 'outside' */
+  text-indent: 0;   /* Reset text-indent */
+} 
+
+.style-set-pseudo ul.highlight-list,
+.style-set-pseudo ul.ul-highlight {
+  padding-left: 64px; /* Base indentation for lists, adjusted by specific rules if needed */
+  margin-left: 0px;
+}
+
+/* Remove standard highlighting styles in pseudo-elements mode */
+.style-set-pseudo .li-highlight {
+  background-color: transparent !important; /* Ensure li itself is transparent */
+  outline: none;
+  width: auto;
+  max-width: none;
+}
+
+.style-set-pseudo .li-highlight-top-continuous,
+.style-set-pseudo .li-highlight-middle-continuous,
+.style-set-pseudo .li-highlight-bottom-continuous {
+  background-color: transparent;
+  width: auto;
+  max-width: none;
+  box-shadow: none;
+}
+
+.style-set-pseudo ul.ul-highlight {
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  outline-offset: 0;
+  width: auto; /* This will be overridden by the more specific rule below */
+  max-width: none; /* This will be overridden by the more specific rule below */
+}
+
+.style-set-pseudo .block-highlight {
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  outline-offset: 0;
+  width: auto;
+  max-width: none;
+}
+
+/* MODIFIED: Whole-List highlight styles for pseudo mode - NOW USES PSEUDO-ELEMENT */
+.style-set-pseudo ul.ul-highlight {
+  position: relative; /* For stacking context */
+  isolation: isolate; /* For robust stacking context */
+  width: fit-content;
+  max-width: max-content;
+  list-style-position: outside; /* Consistent with other lists in this mode */
+  padding-left: 64px;        /* Consistent with other lists in this mode */
+  margin-left: 0px;          /* Consistent with other lists in this mode */
+  /* Direct background, shadow, outline removed - handled by ::before */
+}
+
+.style-set-pseudo ul.ul-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fill the parent ul (including its padding) */
+  background-color: rgb(243, 213, 255); /* Light fill */
+  outline: 2px solid rgb(161, 46, 207);           /* 2px bright-purple border */
+  outline-offset: 8px;
+  left: 32px;
+  width: calc(100% - 32px);
+  box-shadow: 0 0 0 8px rgb(243, 213, 255); /* 8px halo of fill color, outside the border */
+  z-index: -1; /* Behind list items within this ul */
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Re-apply Block-Level highlight styles for pseudo mode (remains direct styling) */
+.style-set-pseudo .block-highlight {
+  background-color: rgb(243, 213, 255);
+  box-shadow: 0 0 0 8px rgb(243, 213, 255);        /* same 8px halo */
+  outline: 2px solid rgb(161, 46, 207);           /* 2px bright-purple border */
+  outline-offset: 8px;
+  width: fit-content;
+  max-width: max-content;
+}
+
+/* Pseudo-element highlighting logic for individual li */
+.style-set-pseudo li.li-highlight,
+.style-set-pseudo li.active { 
+  position: relative; /* Establish a local stacking context */
+  isolation: isolate; /* Create a new stacking context to contain z-index changes */
+  background-color: transparent !important; /* Ensure li itself is transparent */
+}
+
+.style-set-pseudo li.li-highlight::before,
+.style-set-pseudo li.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -32px;
+  width: calc(100% + 36px);
+  height: 100%;
+  border: 1px solid rgb(161, 46, 207);
+  box-sizing: border-box;
+  background-color: rgb(243, 213, 255);
+  z-index: -1; /* Sit under the text inside this li's stacking context */
+  pointer-events: none; /* Keep links in the li clickable */
+}
+
+/* Remove bottom border if the next sibling is also highlighted */
+.style-set-pseudo li.li-highlight:has(+ li.li-highlight)::before,
+.style-set-pseudo li.active:has(+ li.active)::before,
+.style-set-pseudo li.li-highlight:has(+ li.active)::before,
+.style-set-pseudo li.active:has(+ li.li-highlight)::before {
+  border-bottom: none;
+}
+
+/* Remove top border if the previous sibling is also highlighted */
+.style-set-pseudo li.li-highlight + li.li-highlight::before,
+.style-set-pseudo li.active + li.active::before,
+.style-set-pseudo li.li-highlight + li.active::before,
+.style-set-pseudo li.active + li.li-highlight::before {
+  border-top: none;
+}
+
+/* Hide the unsupported section in pseudo-elements mode */
+.style-set-pseudo .unsupported-section {
+  display: none;
+} 

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accessible Highlighted Bulleted List</title>
+  <link rel="stylesheet" href="universal-styles.css">
+  <link rel="stylesheet" href="style-set-inside.css">
+  <link rel="stylesheet" href="style-set-outside.css">
+  <link rel="stylesheet" href="style-set-pseudo.css">
+</head>
+<body class="style-set-pseudo">
+  <!-- <div class="style-switch-container">
+    <div id="styleToggleSwitch" class="style-switch">
+      <span data-value="pseudo" class="switch-option">Pseudo-Elements</span>
+      <span data-value="inside" class="switch-option" style="display: none;">Bullet Highlighting</span>
+      <span data-value="outside" class="switch-option" style="display: none;">Standard Bullets</span>
+    </div>
+  </div> -->
+
+
+
+  <h3>One bullet highlighted</h3>
+  <p>This introductory sentence is part of the same highlighted block as the list below:</p>
+  <ul class="highlight-list">
+    <li>Plain list item</li>
+    <li class="li-highlight">This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</li>
+    <li>Another plain list item</li>
+  </ul>
+
+  <h3>Adjacent bullets highlighted</h3>
+  <p>This introductory sentence is part of the same highlighted block as the list below:</p>
+  <ul class="highlight-list">
+    <li>Plain list item</li>
+    <li class="li-highlight">This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</li>
+    <li class="li-highlight">This of the same highlighted block as the list below This introductory sentence</li>
+  </ul>
+
+  <h3>Mixed Pattern Highlighting</h3>
+  <p>Example with alternating highlighted and plain items:</p>
+  <ul class="highlight-list">
+    <li>Bullet 1</li>
+    <li class="li-highlight">Bullet 2</li>
+    <li class="li-highlight">slightly longer Bullet 3</li>
+    <li class="li-highlight">Bullet 4</li>
+    <li>Bullet 5</li>
+    <li class="li-highlight">Bullet 6</li>
+  </ul>
+  <p>Note - Don't think there's a way to make these widths hug the content like the below simpler examples as the pseudo-elements would need to see the longest option?</p>
+
+  <!-- ---------- Example 2: highlight around the entire UL ---------- -->
+  <div class="unsupported-section">
+    <h3>Adjacent Bullets Highlight (not supported)</h3>
+    <p>This introductory sentence is part of the same highlighted block as the list below:</p>
+    <ul class="highlight-list">
+      <li>First item</li>
+      <li>Second item</li>
+      <div class="li-highlight">
+        <li>This introductory sentence is part of the same highlighted block as the list below This introductory sentence</li>
+        <li>This of the same highlighted block as the list below This introductory sentence</li>
+      </div>
+      <li>fifth item</li>
+    </ul>
+
+    <p>if I add any aria sematics to the div containing the highlighted items, the list is no longer properly read by screen readers. Perhaps because the screen reader stops ignoring the div, and then the list reading logic (amount of items in the list) breaks.</p>
+    <p>how would we add screen reader support for list elements with the highlight here? since we can't add to the div, we'd need to add to li elements (even though those elements are not applying the highlights directly).</p>
+  </div>
+
+  <!-- ---------- Example 2: highlight around the entire UL ---------- -->
+  <h3>Standalone whole-list highlight</h3>
+  <ul class="ul-highlight">
+    <li>First item</li>
+    <li>Second item Second item Second item Second item item Second item Second item Second item Second item Second Second item Second item Second item Second item Second item </li>
+    <li>Third item</li>
+    <li>fourth item</li>
+  </ul>
+
+  <br>
+
+  <ul class="ul-highlight">
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+    <li>fourth item</li>
+  </ul>
+
+  
+  <h3>whole-list highlight with tight preceeding paragraph</h3>
+
+    <p>This introductory sentence is part of the same highlighted block as the list below:</p>
+    <ul class="highlight-list">
+        <li class="li-highlight">This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</li>
+        <li class="li-highlight">This of the same highlighted block as the list below This introductory sentence</li>
+      </ul>
+
+      <p>Note - we might need to define a "list plus preceeding paragraph" variant or way body text works, if we don't want default paragraph bottom spacing between the paragraph and the list.</p>
+
+
+  <!-- ---------- Example 3: Paragraph + List highlighted together ---------- -->
+  <h3>Paragraph + List Highlight</h3>
+  <div class="block-highlight">
+    <p>This introductory sentence is part of the same highlighted block as the list below:</p>
+    <ul class="highlight-list">
+      <li>Alpha item</li>
+      <li>Beta item</li>
+      <li>Gamma item</li>
+    </ul>
+  </div>
+
+<br>
+<br>
+<hr>
+
+
+  <h3>Progressing highlighting of a list</h3>
+  <div>
+    <!-- Example 1 -->
+    <div>
+      <h4>Example 1: Standalone Whole-List</h4>
+      <ul class="ul-highlight">
+        <li>This is a single list item in a whole-list highlight.</li>
+      </ul>
+    </div>
+
+    <!-- Example 2 -->
+    <div>
+      <h4>Example 2: One Bullet Highlighted</h4>
+      <ul class="highlight-list">
+        <li>This is a plain first list item.</li>
+        <li class="li-highlight">This second item is highlighted.</li>
+      </ul>
+    </div>
+
+    <!-- Example 3 -->
+    <div>
+      <h4>Example 3: Two Bullets Highlighted</h4>
+      <ul class="highlight-list">
+        <li>This is a plain first list item.</li>
+        <li>This second item is also plain.</li>
+        <li class="li-highlight">Bullet three is highlighted.</li>
+        <li class="li-highlight">And bullet four is also highlighted.</li>
+      </ul>
+    </div>
+  </div>
+
+
+<script>
+  const styleSwitch = document.getElementById('styleToggleSwitch');
+  const switchOptions = styleSwitch.querySelectorAll('.switch-option');
+  const body = document.body;
+
+  // Function to set the active state of the switch
+  function setActiveSwitch(selectedValue) {
+    switchOptions.forEach(option => {
+      if (option.dataset.value === selectedValue) {
+        option.classList.add('active');
+      } else {
+        option.classList.remove('active');
+      }
+    });
+  }
+
+  // Initial state based on body class
+  if (body.classList.contains('style-set-inside')) {
+    setActiveSwitch('inside');
+  } else if (body.classList.contains('style-set-outside')) {
+    setActiveSwitch('outside');
+  } else if (body.classList.contains('style-set-pseudo')) {
+    setActiveSwitch('pseudo');
+  }
+
+  styleSwitch.addEventListener('click', (event) => {
+    const clickedOption = event.target.closest('.switch-option');
+    if (!clickedOption) return; // Click was not on an option
+
+    const selectedValue = clickedOption.dataset.value;
+
+    // Remove all style classes
+    body.classList.remove('style-set-inside', 'style-set-outside', 'style-set-pseudo');
+
+    if (selectedValue === 'inside') {
+      body.classList.add('style-set-inside');
+      setActiveSwitch('inside');
+    } else if (selectedValue === 'outside') {
+      body.classList.add('style-set-outside');
+      setActiveSwitch('outside');
+    } else if (selectedValue === 'pseudo') {
+      body.classList.add('style-set-pseudo');
+      setActiveSwitch('pseudo');
+    }
+  });
+</script>
+</body>
+</html>
+
+
+
