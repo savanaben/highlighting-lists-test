@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="style-set-pseudo.css">
 </head>
 <body class="style-set-pseudo">
+  <div class="test-toolbar" role="toolbar" aria-label="Test page controls">
+    <div class="line-height-segment">
+      <span class="line-height-segment__label" id="lineHeightLabel">Line height</span>
+      <div class="segmented-control" role="group" aria-labelledby="lineHeightLabel">
+        <button type="button" class="segmented-control__btn active" data-line-height="1.1" aria-pressed="true">1.1</button>
+        <button type="button" class="segmented-control__btn" data-line-height="1.4" aria-pressed="false">1.4</button>
+      </div>
+    </div>
+  </div>
   <!-- <div class="style-switch-container">
     <div id="styleToggleSwitch" class="style-switch">
       <span data-value="pseudo" class="switch-option">Pseudo-Elements</span>
@@ -17,7 +26,57 @@
     </div>
   </div> -->
 
+  <h3>Image highlight</h3>
+  <p><strong>Note</strong> - In benchmark we use 16px instead of 8px for the padding/gap between the image and the purple border. ACD feels that if NPD is open to eliminating this high-padding variation just for images, we'd like to do so to reduce highlight variants. So image highlighting would use the same 8px padding as other standalone highlights.</p>
+  <div class="block-highlight">
+    <img src="https://picsum.photos/300/200" alt="" width="300" height="200" decoding="async" />
+  </div>
 
+  <h3>Standalone paragraph and PassageContent</h3>
+  <div class="block-highlight passage-content">
+    <p>This is a short dummy paragraph. It uses the standalone block highlight: thicker outline, 8px halo, and outline offset for spacing outside the fill.</p>
+  </div>
+
+  <h3>Highlighting multiple adjacent elements</h3>
+  <p>This short paragraph is plain body text and is not part of any highlight.</p>
+  <div class="block-highlight">
+    <p>These two paragraphs sit inside one <code>block-highlight</code> wrapper so they share a single continuous highlight.</p>
+    <p>This is the second paragraph in that same block—the same fill, outline, and halo apply to both.</p>
+  </div>
+  <p>Another short plain paragraph separates the highlighted regions.</p>
+  <div class="block-highlight">
+    <p>This introductory sentence is part of the same highlighted block as the list below:</p>
+    <ul class="highlight-list">
+      <li>Alpha item</li>
+      <li>Beta item</li>
+      <li>Gamma item</li>
+    </ul>
+  </div>
+
+  <h3>add-hoc text highlight</h3>
+  <p>The assessment began with a brief orientation to the interface. Students were reminded that they could return to earlier items if time allowed. <span data-component="Text" data-highlight="text2" data-is-highlighted="true" class="text-highlight">The middle sentence is deliberately extended with extra detail so that narrow layouts force one or more line wraps inside the highlight; the fill and border should follow each wrapped fragment while the rest of the paragraph stays unstyled.</span> Technical support staff monitored the session in a separate room. Everyone received a short debrief at the end.</p>
+
+  <!-- ---------- Example: highlight around the entire UL ---------- -->
+  <h3>Standalone whole-list highlight</h3>
+  <p><strong>Note</strong> - because highlighting a full/standalone list (ul/ol) is easier than a single list item (li), we can have the highlight "contained" to the horizontal size of the li elements (see the short list below, "first item, second item", etc). This is not possible when highlighting single list (li) elements, because of the technique used to remove the borders between adjacent list elements (the width of the lines needs to be uniform).</p>
+
+  <ul class="ul-highlight">
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+    <li>fourth item</li>
+  </ul>
+
+  <p>This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</p>
+
+  <ul class="ul-highlight">
+    <li>First item</li>
+    <li>Second item Second item Second item Second item item Second item Second item Second item Second item Second Second item Second item Second item Second item Second item </li>
+    <li>Third item</li>
+    <li>fourth item</li>
+  </ul>
+  <p>This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</p>
+  <p>This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</p>
 
   <h3>One bullet highlighted</h3>
   <p>This introductory sentence is part of the same highlighted block as the list below:</p>
@@ -44,9 +103,15 @@
     <li class="li-highlight">Bullet 4</li>
     <li>Bullet 5</li>
     <li class="li-highlight">Bullet 6</li>
+    <ul class="highlight-list">
+        <li class="li-highlight">Bullet 7</li>
+        <ul class="highlight-list">
+            <li class="li-highlight">Bullet 8</li>
+            <li class="li-highlight">A longer Bullet 9</li>
+            <li class="li-highlight">Bullet 10</li>
+        </ul>
+    </ul>
   </ul>
-  <p>Note - Don't think there's a way to make these widths hug the content like the below simpler examples as the pseudo-elements would need to see the longest option?</p>
-
   <!-- ---------- Example 2: highlight around the entire UL ---------- -->
   <div class="unsupported-section">
     <h3>Adjacent Bullets Highlight (not supported)</h3>
@@ -65,46 +130,6 @@
     <p>how would we add screen reader support for list elements with the highlight here? since we can't add to the div, we'd need to add to li elements (even though those elements are not applying the highlights directly).</p>
   </div>
 
-  <!-- ---------- Example 2: highlight around the entire UL ---------- -->
-  <h3>Standalone whole-list highlight</h3>
-  <ul class="ul-highlight">
-    <li>First item</li>
-    <li>Second item Second item Second item Second item item Second item Second item Second item Second item Second Second item Second item Second item Second item Second item </li>
-    <li>Third item</li>
-    <li>fourth item</li>
-  </ul>
-
-  <br>
-
-  <ul class="ul-highlight">
-    <li>First item</li>
-    <li>Second item</li>
-    <li>Third item</li>
-    <li>fourth item</li>
-  </ul>
-
-  
-  <h3>whole-list highlight with tight preceeding paragraph</h3>
-
-    <p>This introductory sentence is part of the same highlighted block as the list below:</p>
-    <ul class="highlight-list">
-        <li class="li-highlight">This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</li>
-        <li class="li-highlight">This of the same highlighted block as the list below This introductory sentence</li>
-      </ul>
-
-      <p>Note - we might need to define a "list plus preceeding paragraph" variant or way body text works, if we don't want default paragraph bottom spacing between the paragraph and the list.</p>
-
-
-  <!-- ---------- Example 3: Paragraph + List highlighted together ---------- -->
-  <h3>Paragraph + List Highlight</h3>
-  <div class="block-highlight">
-    <p>This introductory sentence is part of the same highlighted block as the list below:</p>
-    <ul class="highlight-list">
-      <li>Alpha item</li>
-      <li>Beta item</li>
-      <li>Gamma item</li>
-    </ul>
-  </div>
 
 <br>
 <br>
@@ -116,8 +141,8 @@
     <!-- Example 1 -->
     <div>
       <h4>Highlight first bullet</h4>
-      <ul class="ul-highlight">
-        <li>This is a single list item in a whole-list highlight.</li>
+      <ul class="highlight-list">
+        <li class="li-highlight">This is a plain first list item.</li>
       </ul>
     </div>
 
@@ -144,50 +169,69 @@
 
 
 <script>
-  const styleSwitch = document.getElementById('styleToggleSwitch');
-  const switchOptions = styleSwitch.querySelectorAll('.switch-option');
-  const body = document.body;
+  (function () {
+    const root = document.documentElement;
+    const group = document.querySelector('.test-toolbar .segmented-control');
+    const buttons = group ? group.querySelectorAll('.segmented-control__btn') : [];
 
-  // Function to set the active state of the switch
-  function setActiveSwitch(selectedValue) {
-    switchOptions.forEach(option => {
-      if (option.dataset.value === selectedValue) {
-        option.classList.add('active');
-      } else {
-        option.classList.remove('active');
+    function setLineHeight(value) {
+      root.style.setProperty('--page-line-height', value);
+      buttons.forEach((btn) => {
+        const active = btn.dataset.lineHeight === value;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    }
+
+    group?.addEventListener('click', (event) => {
+      const btn = event.target.closest('.segmented-control__btn');
+      if (!btn) return;
+      setLineHeight(btn.dataset.lineHeight);
+    });
+  })();
+
+  const styleSwitch = document.getElementById('styleToggleSwitch');
+  const body = document.body;
+  if (styleSwitch) {
+    const switchOptions = styleSwitch.querySelectorAll('.switch-option');
+
+    function setActiveSwitch(selectedValue) {
+      switchOptions.forEach((option) => {
+        if (option.dataset.value === selectedValue) {
+          option.classList.add('active');
+        } else {
+          option.classList.remove('active');
+        }
+      });
+    }
+
+    if (body.classList.contains('style-set-inside')) {
+      setActiveSwitch('inside');
+    } else if (body.classList.contains('style-set-outside')) {
+      setActiveSwitch('outside');
+    } else if (body.classList.contains('style-set-pseudo')) {
+      setActiveSwitch('pseudo');
+    }
+
+    styleSwitch.addEventListener('click', (event) => {
+      const clickedOption = event.target.closest('.switch-option');
+      if (!clickedOption) return;
+
+      const selectedValue = clickedOption.dataset.value;
+      body.classList.remove('style-set-inside', 'style-set-outside', 'style-set-pseudo');
+
+      if (selectedValue === 'inside') {
+        body.classList.add('style-set-inside');
+        setActiveSwitch('inside');
+      } else if (selectedValue === 'outside') {
+        body.classList.add('style-set-outside');
+        setActiveSwitch('outside');
+      } else if (selectedValue === 'pseudo') {
+        body.classList.add('style-set-pseudo');
+        setActiveSwitch('pseudo');
       }
     });
   }
-
-  // Initial state based on body class
-  if (body.classList.contains('style-set-inside')) {
-    setActiveSwitch('inside');
-  } else if (body.classList.contains('style-set-outside')) {
-    setActiveSwitch('outside');
-  } else if (body.classList.contains('style-set-pseudo')) {
-    setActiveSwitch('pseudo');
-  }
-
-  styleSwitch.addEventListener('click', (event) => {
-    const clickedOption = event.target.closest('.switch-option');
-    if (!clickedOption) return; // Click was not on an option
-
-    const selectedValue = clickedOption.dataset.value;
-
-    // Remove all style classes
-    body.classList.remove('style-set-inside', 'style-set-outside', 'style-set-pseudo');
-
-    if (selectedValue === 'inside') {
-      body.classList.add('style-set-inside');
-      setActiveSwitch('inside');
-    } else if (selectedValue === 'outside') {
-      body.classList.add('style-set-outside');
-      setActiveSwitch('outside');
-    } else if (selectedValue === 'pseudo') {
-      body.classList.add('style-set-pseudo');
-      setActiveSwitch('pseudo');
-    }
-  });
 </script>
 </body>
 </html>

@@ -1,21 +1,28 @@
 /* === STYLE SET: PSEUDO-ELEMENTS (.style-set-pseudo) === */
-/* Styles for pseudo-element highlighting with outside list-style-position */
+/*
+ * One list shell for both ul.highlight-list (per-li ::before) and ul.ul-highlight (ul ::before):
+ * outside bullets, indent, shrink-wrap to widest li. Nested lists fill the parent column.
+ */
 .style-set-pseudo ul.highlight-list,
 .style-set-pseudo ul.ul-highlight {
   list-style-position: outside;
+  padding-left: 64px;
+  margin-left: 0;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .style-set-pseudo ul.highlight-list li,
 .style-set-pseudo ul.ul-highlight li {
-  /* transition: background 200ms ease, box-shadow 200ms ease; <- In universal-styles.css */
-  padding-left: 0; /* Reset padding, bullet position handled by 'outside' */
-  text-indent: 0;   /* Reset text-indent */
-} 
+  padding-left: 0;
+  text-indent: 0;
+}
 
-.style-set-pseudo ul.highlight-list,
-.style-set-pseudo ul.ul-highlight {
-  padding-left: 64px; /* Base indentation for lists, adjusted by specific rules if needed */
-  margin-left: 0px;
+.style-set-pseudo :is(ul.highlight-list, ul.ul-highlight) :is(ul.highlight-list, ul.ul-highlight) {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Remove standard highlighting styles in pseudo-elements mode */
@@ -35,15 +42,6 @@
   box-shadow: none;
 }
 
-.style-set-pseudo ul.ul-highlight {
-  background-color: transparent;
-  box-shadow: none;
-  outline: none;
-  outline-offset: 0;
-  width: auto; /* This will be overridden by the more specific rule below */
-  max-width: none; /* This will be overridden by the more specific rule below */
-}
-
 .style-set-pseudo .block-highlight {
   background-color: transparent;
   box-shadow: none;
@@ -53,28 +51,26 @@
   max-width: none;
 }
 
-/* MODIFIED: Whole-List highlight styles for pseudo mode - NOW USES PSEUDO-ELEMENT */
+/* Whole-list highlight: strip universal paint; ::before draws box */
 .style-set-pseudo ul.ul-highlight {
-  position: relative; /* For stacking context */
-  isolation: isolate; /* For robust stacking context */
-  width: fit-content;
-  max-width: max-content;
-  list-style-position: outside; /* Consistent with other lists in this mode */
-  padding-left: 64px;        /* Consistent with other lists in this mode */
-  margin-left: 0px;          /* Consistent with other lists in this mode */
-  /* Direct background, shadow, outline removed - handled by ::before */
+  position: relative;
+  isolation: isolate;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  outline-offset: 0;
 }
 
 .style-set-pseudo ul.ul-highlight::before {
   content: "";
   position: absolute;
   inset: 0; /* Fill the parent ul (including its padding) */
-  background-color: rgb(243, 213, 255); /* Light fill */
-  outline: 2px solid rgb(161, 46, 207);           /* 2px bright-purple border */
+  background-color: #f3d5ff; /* Light fill */
+  outline: 2px solid #a12ecf;           /* 2px bright-purple border */
   outline-offset: 8px;
   left: 32px;
   width: calc(100% - 32px);
-  box-shadow: 0 0 0 8px rgb(243, 213, 255); /* 8px halo of fill color, outside the border */
+  box-shadow: 0 0 0 8px #f3d5ff; /* 8px halo of fill color, outside the border */
   z-index: -1; /* Behind list items within this ul */
   pointer-events: none;
   box-sizing: border-box;
@@ -82,9 +78,9 @@
 
 /* Re-apply Block-Level highlight styles for pseudo mode (remains direct styling) */
 .style-set-pseudo .block-highlight {
-  background-color: rgb(243, 213, 255);
-  box-shadow: 0 0 0 8px rgb(243, 213, 255);        /* same 8px halo */
-  outline: 2px solid rgb(161, 46, 207);           /* 2px bright-purple border */
+  background-color: #f3d5ff;
+  box-shadow: 0 0 0 8px #f3d5ff;        /* same 8px halo */
+  outline: 2px solid #a12ecf;           /* 2px bright-purple border */
   outline-offset: 8px;
   width: fit-content;
   max-width: max-content;
@@ -106,9 +102,9 @@
   left: -32px;
   width: calc(100% + 36px);
   height: 100%;
-  border: 1px solid rgb(161, 46, 207);
+  border: 1px solid #a12ecf;
   box-sizing: border-box;
-  background-color: rgb(243, 213, 255);
+  background-color: #f3d5ff;
   z-index: -1; /* Sit under the text inside this li's stacking context */
   pointer-events: none; /* Keep links in the li clickable */
 }
