@@ -26,8 +26,32 @@
     </div>
   </div> -->
 
+  <h2>Purple Highlight Examples</h2>
+
+  <h3>Change Log</h3>
+  <div class="change-log">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Version</th>
+          <th scope="col">Notes</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Initial release</td>
+          <td>3/31/2026</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3>Image highlight</h3>
-  <p><strong>Note</strong> - In benchmark we use 16px instead of 8px for the padding/gap between the image and the purple border. ACD feels that if NPD is open to eliminating this high-padding variation just for images, we'd like to do so to reduce highlight variants. So image highlighting would use the same 8px padding as other standalone highlights.</p>
+  <div class="info-box" role="note">
+    <p><strong>Note</strong> - In benchmark we use 16px instead of 8px for the padding/gap between the image and the purple border. ACD feels that if NPD is open to eliminating this high-padding variation just for images, we'd like to do so to reduce highlight variants. So image highlighting would use the same 8px padding as other standalone highlights.</p>
+  </div>
   <div class="block-highlight">
     <img src="https://picsum.photos/300/200" alt="" width="300" height="200" decoding="async" />
   </div>
@@ -37,10 +61,24 @@
     <p>This is a short dummy paragraph. It uses the standalone block highlight: thicker outline, 8px halo, and outline offset for spacing outside the fill.</p>
   </div>
 
+  <h3>Title Highlight</h3>
+  <div class="block-highlight">
+    <h3>The Tale of Despereaux</h3>
+  </div>
+
+  <h3>Button, Tab, and Table highlights</h3>
+  <div class="info-box" role="note">
+    <p>See the benchmark useHighlight "Button &amp; Tabs" and "TableCell" sections for how these elements are highlighted.</p>
+  </div>
+
   <h3>Highlighting multiple adjacent elements</h3>
+  <div class="info-box" role="note">
+    <p>Multiple adjacent elements are contained in one continuous spaced highlight.</p>
+  </div>
   <p>This short paragraph is plain body text and is not part of any highlight.</p>
   <div class="block-highlight">
-    <p>These two paragraphs sit inside one <code>block-highlight</code> wrapper so they share a single continuous highlight.</p>
+    <h4>The Tale of Despereaux</h4>
+    <p>These two paragraphs and the subheading sit inside one <code>block-highlight</code> wrapper so they share a single continuous highlight.</p>
     <p>This is the second paragraph in that same block—the same fill, outline, and halo apply to both.</p>
   </div>
   <p>Another short plain paragraph separates the highlighted regions.</p>
@@ -54,11 +92,17 @@
   </div>
 
   <h3>add-hoc text highlight</h3>
+  <div class="info-box" role="note">
+    <p>Add-hoc text highlights (potentially using the "text" benchmark component) generally have non-highlighted content immediately surrounding them, such as sentence in a larger paragraph. They use the tighter highlight variant.</p>
+  </div>
   <p>The assessment began with a brief orientation to the interface. Students were reminded that they could return to earlier items if time allowed. <span data-component="Text" data-highlight="text2" data-is-highlighted="true" class="text-highlight">The middle sentence is deliberately extended with extra detail so that narrow layouts force one or more line wraps inside the highlight; the fill and border should follow each wrapped fragment while the rest of the paragraph stays unstyled.</span> Technical support staff monitored the session in a separate room. Everyone received a short debrief at the end.</p>
 
   <!-- ---------- Example: highlight around the entire UL ---------- -->
   <h3>Standalone whole-list highlight</h3>
-  <p><strong>Note</strong> - because highlighting a full/standalone list (ul/ol) is easier than a single list item (li), we can have the highlight "contained" to the horizontal size of the li elements (see the short list below, "first item, second item", etc). This is not possible when highlighting single list (li) elements, because of the technique used to remove the borders between adjacent list elements (the width of the lines needs to be uniform).</p>
+  <div class="info-box" role="note">
+    <p>Note that css width fit-content/max-content is used so the highlight only extends as much as it needs to.</p>
+  </div>
+  <p>This introductory sentence is part of the same highlighted block as the list below This introductory sentence is part of the same highlighted block as the list below</p>
 
   <ul class="ul-highlight">
     <li>First item</li>
@@ -87,6 +131,9 @@
   </ul>
 
   <h3>Adjacent bullets highlighted</h3>
+  <div class="info-box" role="note">
+    <p>Each highlighted <code>li</code> draws a background/border using <code>::before</code>. CSS adjacency selectors and <code>:has(+ li.li-highlight)</code> detect neighboring highlighted items, then remove shared borders (<code>border-bottom: none</code> on the upper item and <code>border-top: none</code> on the lower one) so the run appears as one continuous highlight.</p>
+  </div>
   <p>This introductory sentence is part of the same highlighted block as the list below:</p>
   <ul class="highlight-list">
     <li>Plain list item</li>
@@ -137,6 +184,9 @@
 
 
   <h3>Progressing highlighting of a list</h3>
+  <div class="info-box" role="note">
+    <p>This section is to just define the content rule of how to highlight a list progressively. Each li should get the highlight in this situation (when there's only 1 bullet, the first one, we are not using the spaced ul/ol whole-list highlight, because we want the highlight style to be consistent across screens/new bullet introductions. This is something authors need to manage (what ICCI outline element gets the highlight applied)).</p>
+  </div>
   <div>
     <!-- Example 1 -->
     <div>
